@@ -235,7 +235,7 @@ export {
   type CarouselApi,
   Carousel,
   CarouselContent,
+  CarouselNext,
   CarouselItem,
   CarouselPrevious,
-  CarouselNext,
 }
