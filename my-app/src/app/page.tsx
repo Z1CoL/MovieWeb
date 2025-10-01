@@ -21,11 +21,66 @@ import {
 import * as React from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import Autoplay from "embla-carousel-autoplay";
+import { MovieType } from "@/lib/type";
+import { Movies } from "@/app/_components/Card";
 
 export default function Home() {
   const plugin = React.useRef(
     Autoplay({ delay: 5000, stopOnInteraction: true })
   );
+
+  const UpcomingMovies: MovieType[] = [
+    {
+      name: "Dear Santa",
+      rating: 7.8,
+      images: "/Slide 4_3 - 1.png",
+    },
+    {
+      name: "How To Train Your Dragon Live Action",
+      rating: 7.8,
+      images: "/Slide 4_3 - 1 (1).png",
+    },
+    {
+      name: "Alien Romulus",
+      rating: 7.8,
+      images: "/Slide 4_3 - 1 (2).png",
+    },
+    {
+      name: "From the ashes",
+      rating: 7.8,
+      images: "/Slide 4_3 - 1 (3).png",
+    },
+    {
+      name: "Space Dog",
+      rating: 7.8,
+      images: "/Slide 4_3 - 1 (4).png",
+    },
+    {
+      name: "The Order",
+      rating: 7.8,
+      images: "/Slide 4_3 - 1 (5).png",
+    },
+    {
+      name: "Y2K",
+      rating: 7.8,
+      images: "/Slide 4_3 - 1 (6).png",
+    },
+    {
+      name: "Solo Leveling: ReAwakening",
+      rating: 7.8,
+      images: "/Slide 4_3 - 1 (7).png",
+    },
+    {
+      name: "Get Away",
+      rating: 7.8,
+      images: "/Slide 4_3 - 1 (8).png",
+    },
+    {
+      name: "Sonic the Headgehog 3",
+      rating: 7.8,
+      images: "/Slide 4_3 - 1 (9).png",
+    },
+  ];
 
   const movieImages = [
     "/movie01.png",
@@ -98,8 +153,8 @@ export default function Home() {
         <div className="flex flex-col gap-[30px] items-center justify-center">
           {/* Movie List Header */}
 
-          <div className=" justify-between flex w-full h-[36px] px-[40px] ">
-            <p className="w-[24px] h-[20px] size-[24px] font-semibold text-[#09090B]">
+          <div className="w-full h-[36px] px-[40px] flex items-center justify-between">
+            <p className="w-fit h-[20px] size-[24px] font-semibold text-[#09090B] flex ">
               Upcoming
             </p>
             <Button className="border-none hover:bg-gray-400 bg-white text-black ">
@@ -110,20 +165,53 @@ export default function Home() {
           <div className=" flex flex-wrap gap-[32px]">
             {/* movie list */}
 
-              <Card>
-                
-              </Card>
-
+            <div>
+              <Movies movies={UpcomingMovies} />
+            </div>
           </div>
         </div>
 
         {/* Movie list 2 */}
 
-        <div className=""></div>
+        <div className="flex flex-col gap-[30px] items-center justify-center">
+          {/* Movie List Header */}
+
+          <div className="w-full h-[36px] px-[40px] flex items-center justify-between">
+            <p className="w-fit h-[20px] size-[24px] font-semibold text-[#09090B] flex ">
+              Popular
+            </p>
+            <Button className="border-none hover:bg-gray-400 bg-white text-black ">
+              See More <img src="vector.svg" alt="" />
+            </Button>
+          </div>
+
+          <div className=" flex flex-wrap gap-[32px]">
+            {/* movie list */}
+
+            <Card>asd</Card>
+          </div>
+        </div>
 
         {/* Movie list 3 */}
 
-        <div className=""></div>
+        <div className="flex flex-col gap-[30px] items-center justify-center">
+          {/* Movie List Header */}
+
+          <div className="w-full h-[36px] px-[40px] flex items-center justify-between">
+            <p className="w-fit h-[20px] size-[24px] font-semibold text-[#09090B] flex ">
+              Top Rated
+            </p>
+            <Button className="border-none hover:bg-gray-400 bg-white text-black ">
+              See More <img src="vector.svg" alt="" />
+            </Button>
+          </div>
+
+          <div className=" flex flex-wrap gap-[32px]">
+            {/* movie list */}
+
+            <Card>asd</Card>
+          </div>
+        </div>
       </section>
     </div>
   );
