@@ -6,20 +6,20 @@ export const MovieCard = (props: { movie: MovieType }) => {
   const { movie } = props;
 
   return (
-    <Card className="p-0 h-fit">
-      <div className="h-fit">
-        <CardContent>
-          <Image src={movie.images} alt={""} width={30} height={50} />
-        </CardContent>
+    <Card className="bg-[#F4F4F5] p-0 h-fit w[] overflow-hidden">
+      <div className="h-fit flex flex-col">
+        <Image src={movie.images} alt={""} width={229} height={340} />
 
-        <CardContent className="flex">
-          <img src="star.svg" alt="" />
-          {movie.rating}
-        </CardContent>
+        <div className="mt-2 ">
+          <div className="flex ml-5">
+            <img src="star.svg" alt="" />
+            {movie.rating}
+          </div>
 
-        <CardContent className="h-fit size-[18px] font-normal ">
-          {movie.name}
-        </CardContent>
+          <CardContent className="flex flex-wrap w-[213px] h-[56px]">
+            {movie.name}
+          </CardContent>
+        </div>
       </div>
     </Card>
   );
