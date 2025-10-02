@@ -7,13 +7,10 @@ import {
   PopoverContent,
 } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import Image from "next/image";
-import { SearchIcon } from "lucide-react";
 
 export default function GenresDropdown() {
   const [open, setOpen] = useState(false);
-  const [query, setQuery] = useState("");
 
   const genres = useMemo(
     () => [
@@ -48,12 +45,6 @@ export default function GenresDropdown() {
     []
   );
 
-  const filtered = useMemo(() => {
-    const q = query.trim().toLowerCase();
-    if (!q) return genres;
-    return genres.filter((g) => g.toLowerCase().includes(q));
-  }, [query, genres]);
-
   return (
     <div className="relative">
       <Popover open={open} onOpenChange={setOpen}>
@@ -77,8 +68,8 @@ export default function GenresDropdown() {
           </Button>
         </PopoverTrigger>
 
-        <PopoverContent className="w-[720px] p-6">
-          <div className="flex items-start gap-6">
+        <PopoverContent className="w-[620px] p-6">
+          <div className="flex flex-col gap-6">
             <div className="w-1/3">
               <h3 className="text-2xl font-semibold">Genres</h3>
               <p className="text-sm text-muted-foreground mt-1">
@@ -86,59 +77,28 @@ export default function GenresDropdown() {
               </p>
             </div>
 
-            <div className="w-2/3">
-              <div className="mb-4">
-                <label className="sr-only">Search genres</label>
-                <div className="relative">
-                  <Image
-                    src={"searchIcon.svg"}
-                    alt=""
-                    width={20}
-                    height={20}
-                    className=" absolute ml-2 mt-2"
-                  />
-                  <Input
-                    value={query}
-                    onChange={(e) => setQuery(e.target.value)}
-                    placeholder="Search.."
-                    className="relative pl-[30px]"
-                  />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
-                {filtered.map((g) => (
-                  <button
-                    key={g}
+            <div className="w-fit border-t-1 pt-6">
+              <div className="flex flex-wrap gap-3">
+                {genres.map((event) => (
+                  <Button
+                    key={event}
                     onClick={() => {
-                      console.log("selected", g);
+                      console.log("selected", event);
                       setOpen(false);
                     }}
-                    className="inline-flex items-center justify-between gap-3 rounded-full border px-3 py-1 text-sm font-medium shadow-sm hover:bg-muted"
+                    className="bg-white border-1 rounded-full border-[#E4E4E7] "
                   >
-                    <span>{g}</span>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-4 w-4"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M9 5l7 7-7 7"
-                      />
-                    </svg>
-                  </button>
+                    <span className="text-black text-[12px] font-semibold">
+                      {event}
+                    </span>
+                    <Image
+                      src={"chevron-right.svg"}
+                      height={16}
+                      width={16}
+                      alt=""
+                    />
+                  </Button>
                 ))}
-
-                {filtered.length === 0 && (
-                  <div className="col-span-full text-sm text-muted-foreground">
-                    No genres found.
-                  </div>
-                )}
               </div>
             </div>
           </div>

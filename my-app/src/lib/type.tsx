@@ -3,3 +3,9 @@ export type MovieType = {
   rating: number;
   images: string;
 };
+
+export type MovieInfoType = {
+  movieName: string;
+  rating: string;
+  info: string;
+};
