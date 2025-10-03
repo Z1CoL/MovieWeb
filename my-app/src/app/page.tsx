@@ -11,9 +11,27 @@ export default function Home() {
       <CarouselSection />
 
       {/* All movie list */}
-      <CardsShowingUsers title="Upcoming" />
-      <CardsShowingUsers title="Popular" />
-      <CardsShowingUsers title="Top Rated" />
+      <CardsShowingUsers
+        title="Upcoming"
+        seeMore="See More"
+        icon="/chevron-right.svg"
+        link="/Upcoming"
+        active={true}
+      />
+      <CardsShowingUsers
+        title="Popular"
+        seeMore="See More"
+        icon="/chevron-right.svg"
+        link=""
+        active={true}
+      />
+      <CardsShowingUsers
+        title="Top Rated"
+        seeMore="See More"
+        icon="/chevron-right.svg"
+        link=""
+        active={true}
+      />
     </div>
   );
 }

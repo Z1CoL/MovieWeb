@@ -1,12 +1,24 @@
 import { Button } from "@/components/ui/button";
 import { Movies } from "./Card";
 import { MovieType } from "@/lib/type";
+import Image from "next/image";
+import Link from "next/link";
 
 type CardsShowingUsersProps = {
   title: string;
+  seeMore: string;
+  icon: string;
+  link: string;
+  active: boolean;
 };
 
-export default function CardsShowingUsers({ title }: CardsShowingUsersProps) {
+export default function CardsShowingUsers({
+  title,
+  seeMore,
+  icon,
+  link,
+  active,
+}: CardsShowingUsersProps) {
   const UpcomingMovies: MovieType[] = [
     {
       name: "Dear Santa",
@@ -70,9 +82,23 @@ export default function CardsShowingUsers({ title }: CardsShowingUsersProps) {
           <p className="w-fit h-[20px] size-[24px] font-semibold text-[#09090B] mx-[16px] flex ">
             {title}
           </p>
-          <Button className="border-none hover:bg-gray-400 bg-white text-black ">
-            See More <img src="vector.svg" alt="" />
-          </Button>
+          {active ? (
+            <Link href={link}>
+              <Button className="border-none hover:bg-gray-400 bg-white text-black ">
+                {seeMore}
+                {icon && <Image src={icon} width={16} height={16} alt="a" />}
+              </Button>
+            </Link>
+          ) : (
+            <Button className="border-none bg-white hover:bg-none">
+            </Button>
+          )}
+          {/* <Link href={link}>
+            <Button className="border-none hover:bg-gray-400 bg-white text-black " >
+              {seeMore}{" "}
+              <Image src={icon} width={16} height={16} alt="a"></Image>
+            </Button>
+          </Link> */}
         </div>
 
         {/* movie list */}
