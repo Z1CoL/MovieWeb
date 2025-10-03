@@ -1,11 +1,36 @@
 export type MovieType = {
   name: string;
   rating: number;
-  images: string;
+  path: string;
 };
 
-export type MovieInfoType = {
-  movieName: string;
-  rating: string;
-  info: string;
+export type BackEndDataRecovery = {
+  backfrop_path?: string;
+  genre_ids?: [];
+  overview?: string;
+  poster_path: string;
+  title: string;
+  vote_average: number;
+  vote_count?: number;
+};
+
+export type BackEndData = {
+  page: number;
+  results: BackEndDataRecovery[];
+  total_pages: number;
+  total_results: number;
+};
+
+export type MovieGeneralType = {
+  title: string;
+  poster_path: string;
+  vote_average: number;
+};
+
+export type CardsShowingUsersProps = {
+  title: string;
+  icon: string;
+  link: string;
+  lable: string;
+  movie: BackEndData;
 };
