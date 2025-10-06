@@ -1,4 +1,4 @@
-import { BackEndData, BackEndDataRecovery } from "@/lib/type";
+import { BackEndData } from "@/lib/type";
 import { MovieCard } from "@/app/_components/ShowCards";
 
 export const Movies = (props: { moviesCardData: BackEndData }) => {
@@ -7,8 +7,7 @@ export const Movies = (props: { moviesCardData: BackEndData }) => {
 
   return (
     <div className="flex flex-wrap gap-[32px] px-[80px]">
-
-      {moviesCardData.results.slice(0,10).map((movie, i) => (
+      {moviesCardData.results.slice(0, 10).map((movie, i) => (
         <MovieCard
           poster_path={movie.poster_path}
           title={movie.title}

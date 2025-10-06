@@ -6,7 +6,7 @@ export type MovieType = {
 
 export type BackEndDataRecovery = {
   backfrop_path?: string;
-  genre_ids?: [];
+  genre_ids?: number[];
   overview?: string;
   poster_path: string;
   title: string;
@@ -31,6 +31,6 @@ export type CardsShowingUsersProps = {
   title: string;
   icon: string;
   link: string;
-  lable: string;
+  lable?: string;
   movie: BackEndData;
 };

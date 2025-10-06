@@ -3,8 +3,8 @@
 import * as React from "react";
 import CardsShowingUsers from "@/app/_components/UserShowCards";
 import CarouselSection from "./_components/carousel";
-import axios, { Axios } from "axios";
-import { BackEndData, MovieGeneralType } from "@/lib/type";
+import axios from "axios";
+import { BackEndData } from "@/lib/type";
 
 export default function Home() {
   const [upcomingMovies, setUpcomingMovies] = React.useState<BackEndData>();
@@ -44,7 +44,7 @@ export default function Home() {
       <CardsShowingUsers
         title="Upcoming"
         icon="/chevron-right.svg"
-        link="/Upcoming"
+        link="/SeeMore/Popular"
         movie={upcomingMovies}
         lable="Upcoming"
       />
@@ -52,7 +52,7 @@ export default function Home() {
       <CardsShowingUsers
         title="Popular"
         icon="/chevron-right.svg"
-        link="/Upcoming"
+        link="/SeeMore/Upcoming"
         movie={popular}
         lable="Upcoming"
       />
@@ -60,7 +60,7 @@ export default function Home() {
       <CardsShowingUsers
         title="Top Rated"
         icon="/chevron-right.svg"
-        link="/Upcoming"
+        link="/SeeMore/TopRated"
         movie={topRated}
         lable="Upcoming"
       />
