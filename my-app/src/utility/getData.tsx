@@ -52,3 +52,37 @@ export const getSimilarMovies = async (id: string) => {
   return similarMovies.data;
 };
 // /movie/${id}/similar?language=en-US&page=1
+
+export const getNowPlayingMovies = async () => {
+  const nowPlaying = await axios.get(
+    `https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1`,
+    {
+      headers: {
+        accept: "application/json",
+        Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_API_KEY} `,
+      },
+    }
+  );
+
+  console.log(nowPlaying);
+
+  return nowPlaying.data;
+};
+
+//  /movie/now_playing?language=en-US&page=1
+
+export const getGenre = async () => {
+  const response = await axios.get(
+    `https://api.themoviedb.org/3/genre/movie/list?language=en-US`,
+    {
+      headers: {
+        accept: "application/json",
+        Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_API_KEY}`,
+      },
+    }
+  );
+
+  return response.data.genres;
+};
+
+//   /genre/movie/list?language=en

@@ -11,6 +11,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import Link from "next/link";
 
 export default async function PopularPage() {
   const getPopularMovies = async () => {
@@ -35,12 +36,14 @@ export default async function PopularPage() {
       <div className="flex flex-wrap w-[1450px] gap-[32px] px-[80px]">
         {moviesResults.results.map((movie, i) => {
           return (
-            <MovieCard
-              poster_path={movie.poster_path}
-              title={movie.title}
-              vote_average={movie.vote_average}
-              key={i}
-            />
+            <Link key={i} id="movie.id" href={`/details/${movie.id}`}>
+              <MovieCard
+                poster_path={movie.poster_path}
+                title={movie.title}
+                vote_average={movie.vote_average}
+                key={i}
+              />
+            </Link>
           );
         })}
       </div>
