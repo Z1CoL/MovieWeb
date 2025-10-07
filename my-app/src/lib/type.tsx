@@ -5,13 +5,16 @@ export type MovieType = {
 };
 
 export type BackEndDataRecovery = {
-  backfrop_path?: string;
+  backdrop_path?: string;
+  id?: number;
   genre_ids?: number[];
   overview?: string;
   poster_path: string;
   title: string;
   vote_average: number;
   vote_count?: number;
+  release_date?: Date;
+  genres?: string;
 };
 
 export type BackEndData = {
@@ -25,6 +28,7 @@ export type MovieGeneralType = {
   title: string;
   poster_path: string;
   vote_average: number;
+  id?: number;
 };
 
 export type CardsShowingUsersProps = {
@@ -33,4 +37,21 @@ export type CardsShowingUsersProps = {
   link: string;
   lable?: string;
   movie: BackEndData;
+};
+
+export type unitCrewType = {
+  crew: crewType[];
+  cast: castType[];
+  id?: number;
+};
+
+export type castType = {
+  name: string;
+  order: number;
+};
+
+export type crewType = {
+  name: string;
+  job: string;
+  credit_id: string;
 };

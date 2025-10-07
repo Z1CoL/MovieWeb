@@ -8,7 +8,7 @@ export const MovieCard = ({
   vote_average,
 }: BackEndDataRecovery) => {
   return (
-    <Card className="bg-[#F4F4F5] p-0 h-fit w[] overflow-hidden">
+    <Card className=" p-0 h-fit overflow-hidden">
       <div className="h-fit flex flex-col">
         <Image
           src={`https://image.tmdb.org/t/p/w500${poster_path}`}
