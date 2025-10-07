@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import GenresDropdown from "./genre";
+// import GenresDropdown from "./genre";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -29,7 +29,7 @@ export default function Navbar() {
         </div>
 
         <div className="flex gap-[10px] w-[488px]">
-          <GenresDropdown />
+          {/* <GenresDropdown /> */}
           <div className="flex items-center relative">
             <Image
               src={"/searchIcon.svg"}

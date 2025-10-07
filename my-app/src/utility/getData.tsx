@@ -73,7 +73,7 @@ export const getNowPlayingMovies = async () => {
 
 export const getGenre = async () => {
   const response = await axios.get(
-    `https://api.themoviedb.org/3/genre/movie/list?language=en-US`,
+    `https://api.themoviedb.org/3/genre/movie/list?language=en`,
     {
       headers: {
         accept: "application/json",
@@ -81,8 +81,8 @@ export const getGenre = async () => {
       },
     }
   );
-
-  return response.data.genres;
+  console.log(response);
+  return response.data;
 };
 
 //   /genre/movie/list?language=en
