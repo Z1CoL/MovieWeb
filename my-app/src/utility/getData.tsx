@@ -5,7 +5,6 @@ export async function GetData() {
     const response = await axios.get(
       "https://api.themoviedb.org/3/movie/popular?language=en-US&page=1"
     );
-    console.log(response);
   }
 }
 
@@ -32,7 +31,6 @@ export const getMovieActors = async (id: string) => {
       },
     }
   );
-  console.log(actors);
 
   return actors.data;
 };
@@ -64,8 +62,6 @@ export const getNowPlayingMovies = async () => {
     }
   );
 
-  console.log(nowPlaying);
-
   return nowPlaying.data;
 };
 
@@ -81,8 +77,20 @@ export const getGenre = async () => {
       },
     }
   );
-  console.log(response);
   return response.data;
 };
 
 //   /genre/movie/list?language=en
+
+export const getGenreIds = async (genreIds: string) => {
+  const response = await axios.get(
+    `https://api.themoviedb.org/3/discover/movie?language=en&with_genres=${genreIds}&page=${1}`,
+    {
+      headers: {
+        accept: "application/json",
+        Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_API_KEY}`,
+      },
+    }
+  );
+  return response.data;
+};

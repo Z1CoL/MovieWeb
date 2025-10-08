@@ -55,3 +55,12 @@ export type crewType = {
   job: string;
   credit_id: string;
 };
+
+export type genreType = {
+  genre: genreInType[];
+};
+
+export type genreInType = {
+  id: number;
+  name: string;
+};

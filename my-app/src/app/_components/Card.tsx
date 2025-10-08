@@ -21,3 +21,5 @@ export const Movies = (props: { moviesCardData: BackEndData }) => {
     </div>
   );
 };
+
+

@@ -19,14 +19,9 @@ export default async function DetailPage({
   const movieActors: unitCrewType = await getMovieActors(id);
   const similarMovies = await getSimilarMovies(id);
 
-  console.log(movieDetail, " asdf");
-  console.log(movieActors, "actor");
-  console.log(similarMovies, "simMovies");
-
   const crew: crewType[] = movieActors.crew;
   const cast: castType[] = movieActors.cast;
 
-  console.log(movieActors.crew, "dir");
   movieActors;
 
   return (
@@ -179,7 +174,3 @@ export default async function DetailPage({
     </div>
   );
 }
-
-/* 
-Winnie Holzman ·  Dana Fox · Gregory Maguire
-*/

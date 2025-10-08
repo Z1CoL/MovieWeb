@@ -1,5 +1,4 @@
-"use client";
-
+"use client"
 import * as React from "react";
 import CardsShowingUsers from "@/app/_components/UserShowCards";
 import CarouselSection from "./_components/carousel";
