@@ -124,7 +124,7 @@ export default async function DetailPage({
               {cast.slice(5, 8).map(
                 (el, i, arr) =>
                   el.order && (
-                    <p>
+                    <p key={i}>
                       {" "}
                       {el.name}
                       {i !== arr.length - 1 && " · "}

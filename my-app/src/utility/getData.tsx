@@ -80,11 +80,9 @@ export const getGenre = async () => {
   return response.data;
 };
 
-//   /genre/movie/list?language=en
-
-export const getGenreIds = async (genreIds: string) => {
+export const getGenreIds = async (genreIds: string, page: number = 1) => {
   const response = await axios.get(
-    `https://api.themoviedb.org/3/discover/movie?language=en&with_genres=${genreIds}&page=${1}`,
+    `https://api.themoviedb.org/3/discover/movie?language=en&with_genres=${genreIds}&page=${page}`,
     {
       headers: {
         accept: "application/json",
