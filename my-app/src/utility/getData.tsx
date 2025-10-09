@@ -92,3 +92,18 @@ export const getGenreIds = async (genreIds: string, page: number = 1) => {
   );
   return response.data;
 };
+
+export const getTrailer = async (id: number) => {
+  const response = await axios.get(
+    `https://api.themoviedb.org/3/movie/${id}/videos?language=en-US`,
+    {
+      headers: {
+        accept: "application/json",
+        Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_API_KEY}`,
+      },
+    }
+  );
+  return response.data;
+};
+
+//   /movie/${id}/videos?language=en-US
