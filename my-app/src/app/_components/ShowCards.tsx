@@ -20,7 +20,7 @@ export const MovieCard = ({
 
         <div className="mt-2 ">
           <div className="flex ml-5">
-            <img src="star.svg" alt="" />
+            <img src="/star.svg" alt="" />
             {vote_average.toFixed(1)} <p>/10</p>
           </div>
 

@@ -48,7 +48,7 @@ export default async function GenresDropdown() {
               <div className="flex flex-wrap gap-3">
                 {movieGenre.genres.map((genre: genreInType) => (
                   <Link key={genre.id} href={`/Genre/${genre.id}`}>
-                    <Button key={genre.id} className="border-1 rounded-full ">
+                    <Button key={genre.id} className="border-1 rounded-full bg-white">
                       <span className="text-black text-[12px] font-semibold">
                         {genre.name}
                       </span>
