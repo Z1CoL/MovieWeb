@@ -11,12 +11,18 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import Link from "next/link";
 
-export default async function TopRatedPage() {
-  const getPopularMovies = async () => {
+export default async function TopRatedPage({
+  searchParams,
+}: {
+  searchParams: { page?: string };
+}) {
+  const page = Number(searchParams.page) || 1;
+
+  const getTopRatedMovies = async (page: number) => {
     const response = await axios.get(
-      `https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1`,
-
+      `https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=${page}`,
       {
         headers: {
           Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_API_KEY}`,
@@ -26,53 +32,67 @@ export default async function TopRatedPage() {
     return response.data;
   };
 
-  const moviesResults: BackEndData = await getPopularMovies();
+  const moviesResults: BackEndData = await getTopRatedMovies(page);
 
   return (
     <div className="flex flex-col items-center justify-center gap-[32px]">
       <p></p>
 
+      {/* Movie List */}
       <div className="flex flex-wrap w-[1450px] gap-[32px] px-[80px]">
-        {moviesResults.results.map((movie, i) => {
-          return (
-            <MovieCard
-              poster_path={movie.poster_path}
-              title={movie.title}
-              vote_average={movie.vote_average}
-              key={i}
-            />
-          );
-        })}
+        {moviesResults.results.map((movie, i) => (
+          <MovieCard
+            poster_path={movie.poster_path}
+            title={movie.title}
+            vote_average={movie.vote_average}
+            key={movie.id}
+          />
+        ))}
       </div>
 
-      <div className="flex w-[1450px] flex-end">
+      {/* Pagination */}
+      <div className="flex w-[1450px] justify-end">
         <Pagination>
           <PaginationContent>
-            <PaginationItem>
-              <PaginationPrevious href="#" />
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationLink href="#">1</PaginationLink>
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationLink href="#" isActive>
-                2
-              </PaginationLink>
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationLink href="#">3</PaginationLink>
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationEllipsis />
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationNext href="#" />
-            </PaginationItem>
+            {/* Previous page */}
+            {page > 1 && (
+              <PaginationItem>
+                <Link href={`/top-rated?page=${page - 1}`}>
+                  <PaginationPrevious />
+                </Link>
+              </PaginationItem>
+            )}
+
+            {/* Page Numbers */}
+            {Array.from(
+              { length: Math.min(moviesResults.total_pages, 5) },
+              (_, i) => {
+                const pageNum = i + 1;
+                return (
+                  <PaginationItem key={pageNum}>
+                    <Link href={`/top-rated?page=${pageNum}`}>
+                      <PaginationLink isActive={page === pageNum}>
+                        {pageNum}
+                      </PaginationLink>
+                    </Link>
+                  </PaginationItem>
+                );
+              }
+            )}
+
+            {moviesResults.total_pages > 5 && <PaginationEllipsis />}
+
+            {/* Next page */}
+            {page < moviesResults.total_pages && (
+              <PaginationItem>
+                <Link href={`/top-rated?page=${page + 1}`}>
+                  <PaginationNext />
+                </Link>
+              </PaginationItem>
+            )}
           </PaginationContent>
         </Pagination>
       </div>
     </div>
   );
 }
-
-///

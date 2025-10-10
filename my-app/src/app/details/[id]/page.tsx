@@ -22,8 +22,6 @@ export default async function DetailPage({
   const crew: crewType[] = movieActors.crew;
   const cast: castType[] = movieActors.cast;
 
-  movieActors;
-
   return (
     <div className="flex flex-col items-center justify-center ">
       {/* TITLE */}
@@ -91,7 +89,7 @@ export default async function DetailPage({
         <div className="w-[1080px] flex flex-col gap-5">
           {/* DIRECTOR */}
           <div className="border-b-2 pb-4 border-gray-300 gap-[53px] flex">
-            <p className="font-bold d">Director</p>
+            <p className="font-bold">Director</p>
             <div className="flex gap-1">
               {crew
                 .filter((el) => el.job === "Director")
@@ -124,8 +122,7 @@ export default async function DetailPage({
               {cast.slice(5, 8).map(
                 (el, i, arr) =>
                   el.order && (
-                    <p key={el.order}>
-                      {" "}
+                    <p key={i}>
                       {el.name}
                       {i !== arr.length - 1 && " · "}
                     </p>
@@ -136,7 +133,7 @@ export default async function DetailPage({
 
           {/* MORE LIKE THIS */}
           <div>
-            <div className=" w-[1080px] justify-between flex">
+            <div className="w-[1080px] justify-between flex">
               <p className="text-2xl font-semibold space-x-[-0.6]">
                 More like this
               </p>
@@ -154,16 +151,15 @@ export default async function DetailPage({
               </Link>
             </div>
 
-            <div className=" flex h-[441px] gap-8 items-center justify-center">
+            <div className="flex h-[441px] gap-8 items-center justify-center">
               {similarMovies.results
                 .slice(4, 9)
                 .map((movie: MovieGeneralType, i: number) => (
-                  <Link id="movie.id" href={`/details/${movie.id}`}>
+                  <Link key={movie.id} href={`/details/${movie.id}`}>
                     <MovieCard
                       poster_path={movie.poster_path}
                       title={movie.title}
                       vote_average={movie.vote_average}
-                      key={i}
                     />
                   </Link>
                 ))}

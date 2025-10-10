@@ -80,11 +80,9 @@ export const getGenre = async () => {
   return response.data;
 };
 
-//   /genre/movie/list?language=en
-
-export const getGenreIds = async (genreIds: string) => {
+export const getGenreIds = async (genreIds: string, page: number = 1) => {
   const response = await axios.get(
-    `https://api.themoviedb.org/3/discover/movie?language=en&with_genres=${genreIds}&page=${1}`,
+    `https://api.themoviedb.org/3/discover/movie?language=en&with_genres=${genreIds}&page=${page}`,
     {
       headers: {
         accept: "application/json",
@@ -94,3 +92,18 @@ export const getGenreIds = async (genreIds: string) => {
   );
   return response.data;
 };
+
+export const getTrailer = async (id: number) => {
+  const response = await axios.get(
+    `https://api.themoviedb.org/3/movie/${id}/videos?language=en-US`,
+    {
+      headers: {
+        accept: "application/json",
+        Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_API_KEY}`,
+      },
+    }
+  );
+  return response.data;
+};
+
+//   /movie/${id}/videos?language=en-US
