@@ -39,10 +39,8 @@ export default async function Home({ params }: { params: { id: string } }) {
             </div>
           </div>
 
-          {/* genre movies */}
           <div className="border-l-2 pl-[60px]">
             <div>
-              {/* arr length genre name */}
               <p className="font-semibold space-x-[-2] text-[20px] pb-8">
                 {" "}
                 {moviesData.total_results} titles in " "
@@ -50,7 +48,7 @@ export default async function Home({ params }: { params: { id: string } }) {
             </div>
             <div className="flex flex-wrap gap-6">
               {moviesData.results.slice(0, 9).map((el: MovieGeneralType) => (
-                <Link id="movie.id" href={`/details/${el.id}`}>
+                <Link key={el.id} id="movie.id" href={`/details/${el.id}`}>
                   <MovieCard
                     poster_path={el.poster_path}
                     title={el.title}
