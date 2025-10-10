@@ -38,6 +38,10 @@ export default function Home() {
       {/* Carousel */}
       <CarouselSection />
 
+      <div>
+i cant lose streak 
+</div >
+
       {/* All movie list */}
 
       <CardsShowingUsers
