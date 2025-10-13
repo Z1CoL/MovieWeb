@@ -117,3 +117,5 @@ export default async function GenrePage({
     </div>
   );
 }
+
+// non streak 
