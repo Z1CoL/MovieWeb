@@ -1,37 +1,55 @@
-"use client"
+"use client";
 import * as React from "react";
+import useSWR from "swr";
+import axios from "axios";
 import CardsShowingUsers from "@/app/_components/UserShowCards";
 import CarouselSection from "./_components/carousel";
-import axios from "axios";
+import SkeletonCard from "@/app/_components/SkeletonCard";
 import { BackEndData } from "@/lib/type";
 
+const fetcher = (url: string) =>
+  axios
+    .get(url, {
+      headers: {
+        Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_API_KEY}`,
+      },
+    })
+    .then((res) => res.data);
+
 export default function Home() {
-  const [upcomingMovies, setUpcomingMovies] = React.useState<BackEndData>();
-  const [popular, setPopular] = React.useState<BackEndData>();
-  const [topRated, setTopRated] = React.useState<BackEndData>();
+  const { data: upcoming, isLoading: isUpcomingLoading } = useSWR<BackEndData>(
+    "https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=1",
+    fetcher
+  );
 
-  React.useEffect(() => {
-    const headers = {
-      Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_API_KEY}`,
-    };
+  const { data: popular, isLoading: isPopularLoading } = useSWR<BackEndData>(
+    "https://api.themoviedb.org/3/movie/popular?language=en-US&page=1",
+    fetcher
+  );
 
-    const labels = ["upcoming", "popular", "top_rated"];
+  const { data: topRated, isLoading: isTopRatedLoading } = useSWR<BackEndData>(
+    "https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1",
+    fetcher
+  );
 
-    labels.map((label) => {
-      axios
-        .get(
-          `https://api.themoviedb.org/3/movie/${label}?language=en-US&page=1`,
-          { headers }
-        )
-        .then((res) => {
-          if (label === "upcoming") setUpcomingMovies(res.data);
-          if (label === "popular") setPopular(res.data);
-          if (label === "top_rated") setTopRated(res.data);
-        });
-    });
-  }, []);
+  const isLoading = isUpcomingLoading || isPopularLoading || isTopRatedLoading;
 
-  if (!upcomingMovies || !popular || !topRated) return null;
+  if (isLoading) {
+    return (
+      <div className="p-6 space-y-8 flex flex-col items-center justify-center">
+        <CarouselSection />
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
+          {Array.from({ length: 1 }).map((_, i) => (
+            <SkeletonCard key={i} />
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  if (!upcoming || !popular || !topRated) {
+    return <div className="w-screen h-screen text-center p-10 text-gray-500">Failed to load data</div>;
+  }
 
   return (
     <div>
@@ -43,21 +61,20 @@ i cant lose streak
 </div >
 
       {/* All movie list */}
-
       <CardsShowingUsers
         title="Upcoming"
         icon="/chevron-right.svg"
-        link="/SeeMore/Popular"
-        movie={upcomingMovies}
+        link="/SeeMore/Upcoming"
+        movie={upcoming}
         lable="Upcoming"
       />
 
       <CardsShowingUsers
         title="Popular"
         icon="/chevron-right.svg"
-        link="/SeeMore/Upcoming"
+        link="/SeeMore/Popular"
         movie={popular}
-        lable="Upcoming"
+        lable="Popular"
       />
 
       <CardsShowingUsers
@@ -65,7 +82,7 @@ i cant lose streak
         icon="/chevron-right.svg"
         link="/SeeMore/TopRated"
         movie={topRated}
-        lable="Upcoming"
+        lable="Top Rated"
       />
     </div>
   );

@@ -5,7 +5,6 @@ import { BackEndData } from "@/lib/type";
 import {
   Pagination,
   PaginationContent,
-  PaginationEllipsis,
   PaginationItem,
   PaginationLink,
   PaginationNext,
@@ -19,6 +18,7 @@ export default async function PopularPage({
   searchParams: { page?: string };
 }) {
   const page = Number(searchParams.page) || 1;
+
   const getPopularMovies = async (page: number) => {
     const response = await axios.get(
       `https://api.themoviedb.org/3/movie/popular?language=en-US&page=${page}`,
@@ -31,66 +31,62 @@ export default async function PopularPage({
     return response.data;
   };
 
-  // API-аас өгөгдлийг авах
   const moviesResults: BackEndData = await getPopularMovies(page);
+  const totalPages = moviesResults.total_pages;
 
   return (
     <div className="flex flex-col items-center justify-center gap-[32px]">
+      {/* Header */}
+      <div className="w-[1350px]">
+        <p className="font-semibold text-3xl">Popular Movies</p>
+      </div>
+
       {/* Movie List */}
       <div className="flex flex-wrap w-[1450px] gap-[32px] px-[80px]">
-        {moviesResults.results.map((movie, i) => {
-          return (
-            <Link key={movie.id} href={`/details/${movie.id}`}>
-              <MovieCard
-                poster_path={movie.poster_path}
-                title={movie.title}
-                vote_average={movie.vote_average}
-                key={i}
-              />
-            </Link>
-          );
-        })}
+        {moviesResults.results.map((movie) => (
+          <Link key={movie.id} href={`/details/${movie.id}`}>
+            <MovieCard
+              poster_path={movie.poster_path}
+              title={movie.title}
+              vote_average={movie.vote_average}
+            />
+          </Link>
+        ))}
       </div>
 
       {/* Pagination */}
       <div className="flex w-[1450px] justify-end">
         <Pagination>
           <PaginationContent>
-            {/* Previous page */}
+            {/* Previous */}
             {page > 1 && (
               <PaginationItem>
-                <Link href={`/popular?page=${page - 1}`}>
-                  <PaginationPrevious />
-                </Link>
+                <PaginationPrevious href={`/Popular?page=${page - 1}`} />
               </PaginationItem>
             )}
 
             {/* Page Numbers */}
-            {Array.from(
-              { length: Math.min(moviesResults.total_pages, 5) },
-              (_, i) => {
-                const pageNum = i + 1;
-                return (
-                  <PaginationItem key={pageNum}>
-                    <Link href={`/popular?page=${pageNum}`}>
-                      <PaginationLink isActive={page === pageNum}>
-                        {pageNum}
-                      </PaginationLink>
-                    </Link>
-                  </PaginationItem>
-                );
-              }
-            )}
+            {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+              const pageNum = i + 1;
+              return (
+                <PaginationItem key={pageNum}>
+                  <PaginationLink
+                    href={`/Popular?page=${pageNum}`}
+                    isActive={page === pageNum}
+                  >
+                    {pageNum}
+                  </PaginationLink>
+                </PaginationItem>
+              );
+            })}
 
-            
+            {/* Ellipsis if there are more pages */}
             {moviesResults.total_pages > 5 && <PaginationEllipsis />}
 
             {/* Next page */}
             {page < moviesResults.total_pages && (
               <PaginationItem>
-                <Link href={`/popular?page=${page + 1}`}>
-                  <PaginationNext />
-                </Link>
+                <PaginationNext href={`/Popular?page=${page + 1}`} />
               </PaginationItem>
             )}
           </PaginationContent>

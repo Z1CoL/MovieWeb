@@ -94,7 +94,7 @@ export default async function DetailPage({
               {crew
                 .filter((el) => el.job === "Director")
                 .map((el) => (
-                  <p key={el.job}>{el.name}</p>
+                  <p key={el.credit_id}>{el.name}</p>
                 ))}
             </div>
           </div>

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { MovieCard } from "../../_components/ShowCards";
+import { MovieCard } from "@/app/_components/ShowCards";
 import React from "react";
 import { BackEndData } from "@/lib/type";
 import {
@@ -11,16 +11,15 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-import Link from "next/link";
 
-export default async function TopRatedPage({
+export default async function UpcomingPage({
   searchParams,
 }: {
   searchParams: { page?: string };
 }) {
   const page = Number(searchParams.page) || 1;
 
-  const getTopRatedMovies = async (page: number) => {
+  const getUpcomingMovies = async (page: number) => {
     const response = await axios.get(
       `https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=${page}`,
       {
@@ -32,20 +31,22 @@ export default async function TopRatedPage({
     return response.data;
   };
 
-  const moviesResults: BackEndData = await getTopRatedMovies(page);
+  const moviesResults: BackEndData = await getUpcomingMovies(page);
 
   return (
     <div className="flex flex-col items-center justify-center gap-[32px]">
-      <p></p>
+      <div className="w-[1350px]">
+        <p className="font-semibold text-3xl space-x-[-0.75px]">Upcoming</p>
+      </div>
 
       {/* Movie List */}
       <div className="flex flex-wrap w-[1450px] gap-[32px] px-[80px]">
-        {moviesResults.results.map((movie, i) => (
+        {moviesResults.results.map((movie) => (
           <MovieCard
+            key={movie.id}
             poster_path={movie.poster_path}
             title={movie.title}
             vote_average={movie.vote_average}
-            key={movie.id}
           />
         ))}
       </div>
@@ -54,27 +55,26 @@ export default async function TopRatedPage({
       <div className="flex w-[1450px] justify-end">
         <Pagination>
           <PaginationContent>
-            {/* Previous page */}
+            {/* Previous */}
             {page > 1 && (
               <PaginationItem>
-                <Link href={`/top-rated?page=${page - 1}`}>
-                  <PaginationPrevious />
-                </Link>
+                <PaginationPrevious href={`/upcoming?page=${page - 1}`} />
               </PaginationItem>
             )}
 
-            {/* Page Numbers */}
+            {/* Page numbers */}
             {Array.from(
-              { length: Math.min(moviesResults.total_pages, 5) },
+              { length: Math.min(5, moviesResults.total_pages) },
               (_, i) => {
                 const pageNum = i + 1;
                 return (
                   <PaginationItem key={pageNum}>
-                    <Link href={`/top-rated?page=${pageNum}`}>
-                      <PaginationLink isActive={page === pageNum}>
-                        {pageNum}
-                      </PaginationLink>
-                    </Link>
+                    <PaginationLink
+                      href={`/upcoming?page=${pageNum}`}
+                      isActive={page === pageNum}
+                    >
+                      {pageNum}
+                    </PaginationLink>
                   </PaginationItem>
                 );
               }
@@ -82,12 +82,10 @@ export default async function TopRatedPage({
 
             {moviesResults.total_pages > 5 && <PaginationEllipsis />}
 
-            {/* Next page */}
+            {/* Next */}
             {page < moviesResults.total_pages && (
               <PaginationItem>
-                <Link href={`/top-rated?page=${page + 1}`}>
-                  <PaginationNext />
-                </Link>
+                <PaginationNext href={`/upcoming?page=${page + 1}`} />
               </PaginationItem>
             )}
           </PaginationContent>

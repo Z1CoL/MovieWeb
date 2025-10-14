@@ -1,5 +1,5 @@
 import axios from "axios";
-import { MovieCard } from "../../_components/ShowCards";
+import { MovieCard } from "@/app/_components/ShowCards";
 import React from "react";
 import { BackEndData } from "@/lib/type";
 import {
@@ -36,8 +36,11 @@ export default async function UpcomingPage({
 
   return (
     <div className="flex flex-col items-center justify-center gap-[32px]">
-      <p></p>
+      <div className="w-[1350px]">
+        <p className="font-semibold text-3xl space-x-[-0.75px]">Upcoming</p>
+      </div>
 
+      {/* Movie List */}
       <div className="flex flex-wrap w-[1450px] gap-[32px] px-[80px]">
         {moviesResults.results.map((movie) => (
           <MovieCard
@@ -49,28 +52,30 @@ export default async function UpcomingPage({
         ))}
       </div>
 
+      {/* Pagination */}
       <div className="flex w-[1450px] justify-end">
         <Pagination>
           <PaginationContent>
+            {/* Previous */}
             {page > 1 && (
               <PaginationItem>
-                <Link href={`/upcoming?page=${page - 1}`}>
-                  <PaginationPrevious />
-                </Link>
+                <PaginationPrevious href={`/upcoming?page=${page - 1}`} />
               </PaginationItem>
             )}
 
+            {/* Page numbers */}
             {Array.from(
-              { length: Math.min(moviesResults.total_pages, 5) },
+              { length: Math.min(5, moviesResults.total_pages) },
               (_, i) => {
                 const pageNum = i + 1;
                 return (
                   <PaginationItem key={pageNum}>
-                    <Link href={`/upcoming?page=${pageNum}`}>
-                      <PaginationLink isActive={page === pageNum}>
-                        {pageNum}
-                      </PaginationLink>
-                    </Link>
+                    <PaginationLink
+                      href={`/upcoming?page=${pageNum}`}
+                      isActive={page === pageNum}
+                    >
+                      {pageNum}
+                    </PaginationLink>
                   </PaginationItem>
                 );
               }
@@ -78,11 +83,10 @@ export default async function UpcomingPage({
 
             {moviesResults.total_pages > 5 && <PaginationEllipsis />}
 
+            {/* Next */}
             {page < moviesResults.total_pages && (
               <PaginationItem>
-                <Link href={`/upcoming?page=${page + 1}`}>
-                  <PaginationNext />
-                </Link>
+                <PaginationNext href={`/upcoming?page=${page + 1}`} />
               </PaginationItem>
             )}
           </PaginationContent>
