@@ -1,6 +1,6 @@
 import { Skeleton } from "@/components/ui/skeleton";
 
-export default function MovieDetailLoader() {
+export default function Home() {
   return (
     <div className="flex items-center justify-center flex-col ">
       <div>
