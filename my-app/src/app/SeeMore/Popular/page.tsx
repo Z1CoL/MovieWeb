@@ -80,9 +80,6 @@ export default async function PopularPage({
               );
             })}
 
-            {/* Ellipsis if there are more pages */}
-            {moviesResults.total_pages > 5 && <PaginationEllipsis />}
-
             {/* Next page */}
             {page < moviesResults.total_pages && (
               <PaginationItem>

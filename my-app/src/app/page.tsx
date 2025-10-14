@@ -48,17 +48,17 @@ export default function Home() {
   }
 
   if (!upcoming || !popular || !topRated) {
-    return <div className="w-screen h-screen text-center p-10 text-gray-500">Failed to load data</div>;
+    return (
+      <div className="w-screen h-screen text-center p-10 text-gray-500">
+        Failed to load data
+      </div>
+    );
   }
 
   return (
     <div>
       {/* Carousel */}
       <CarouselSection />
-
-      <div>
-i cant lose streak 
-</div >
 
       {/* All movie list */}
       <CardsShowingUsers
