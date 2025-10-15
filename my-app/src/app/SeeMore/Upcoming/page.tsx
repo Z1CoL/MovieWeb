@@ -52,41 +52,29 @@ export default async function UpcomingPage({
         ))}
       </div>
 
-      {/* Pagination */}
-      <div className="flex w-[1450px] justify-end">
+      <div className="mt-8">
         <Pagination>
           <PaginationContent>
             {/* Previous */}
             {page > 1 && (
               <PaginationItem>
-                <PaginationPrevious href={`/upcoming?page=${page - 1}`} />
+                <PaginationPrevious
+                  href={`/SeeMore/Upcoming?page=${page - 1}`}
+                />
               </PaginationItem>
             )}
 
-            {/* Page numbers */}
-            {Array.from(
-              { length: Math.min(5, moviesResults.total_pages) },
-              (_, i) => {
-                const pageNum = i + 1;
-                return (
-                  <PaginationItem key={pageNum}>
-                    <PaginationLink
-                      href={`/upcoming?page=${pageNum}`}
-                      isActive={page === pageNum}
-                    >
-                      {pageNum}
-                    </PaginationLink>
-                  </PaginationItem>
-                );
-              }
-            )}
-
-            {moviesResults.total_pages > 5 && <PaginationEllipsis />}
+            {/* Current Page */}
+            <PaginationItem>
+              <PaginationLink href={`/SeeMore/Upcoming?page=${page}`} isActive>
+                {page}
+              </PaginationLink>
+            </PaginationItem>
 
             {/* Next */}
             {page < moviesResults.total_pages && (
               <PaginationItem>
-                <PaginationNext href={`/upcoming?page=${page + 1}`} />
+                <PaginationNext href={`/SeeMore/Upcoming?page=${page + 1}`} />
               </PaginationItem>
             )}
           </PaginationContent>

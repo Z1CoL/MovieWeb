@@ -34,6 +34,8 @@ export default async function PopularPage({
   const moviesResults: BackEndData = await getPopularMovies(page);
   const totalPages = moviesResults.total_pages;
 
+  console.log(moviesResults, "movies result");
+
   return (
     <div className="flex flex-col items-center justify-center gap-[32px]">
       {/* Header */}
@@ -55,35 +57,29 @@ export default async function PopularPage({
       </div>
 
       {/* Pagination */}
-      <div className="flex w-[1450px] justify-end">
+      <div className="mt-8">
         <Pagination>
           <PaginationContent>
             {/* Previous */}
             {page > 1 && (
               <PaginationItem>
-                <PaginationPrevious href={`/Popular?page=${page - 1}`} />
+                <PaginationPrevious
+                  href={`/SeeMore/Popular?page=${page - 1}`}
+                />
               </PaginationItem>
             )}
 
-            {/* Page Numbers */}
-            {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
-              const pageNum = i + 1;
-              return (
-                <PaginationItem key={pageNum}>
-                  <PaginationLink
-                    href={`/Popular?page=${pageNum}`}
-                    isActive={page === pageNum}
-                  >
-                    {pageNum}
-                  </PaginationLink>
-                </PaginationItem>
-              );
-            })}
+            {/* Current Page */}
+            <PaginationItem>
+              <PaginationLink href={`/SeeMore/Popular?page=${page}`} isActive>
+                {page}
+              </PaginationLink>
+            </PaginationItem>
 
-            {/* Next page */}
+            {/* Next */}
             {page < moviesResults.total_pages && (
               <PaginationItem>
-                <PaginationNext href={`/Popular?page=${page + 1}`} />
+                <PaginationNext href={`/SeeMore/Popular?page=${page + 1}`} />
               </PaginationItem>
             )}
           </PaginationContent>

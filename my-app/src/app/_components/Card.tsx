@@ -4,7 +4,6 @@ import Link from "next/link";
 
 export const Movies = (props: { moviesCardData: BackEndData }) => {
   const { moviesCardData } = props;
-  console.log(moviesCardData, "dsklhjsdkfsh");
 
   return (
     <div className="flex flex-wrap gap-[32px] px-[80px]">

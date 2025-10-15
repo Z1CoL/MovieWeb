@@ -106,4 +106,4 @@ export const getTrailer = async (id: number) => {
   return response.data;
 };
 
-//   /movie/${id}/videos?language=en-US
+//   /movie/${id}/videos?language=en-US.

@@ -47,3 +47,45 @@ export default function Home() {
     </div>
   );
 }
+
+{
+  /* 
+            <div className="mt-8">
+              <Pagination>
+                <PaginationContent>
+                  {page > 1 && (
+                    <PaginationItem>
+                      <PaginationPrevious
+                        href={`/Genre/${genreId}?page=${page - 1}`}
+                      />
+                    </PaginationItem>
+                  )}
+
+                  {Array.from(
+                    { length: Math.min(5, moviesData.total_pages) },
+                    (_, i) => {
+                      const pageNum = i + 1;
+                      return (
+                        <PaginationItem key={pageNum}>
+                          <PaginationLink
+                            href={`/Genre/${genreId}?page=${pageNum}`}
+                            isActive={page === pageNum}
+                          >
+                            {pageNum}
+                          </PaginationLink>
+                        </PaginationItem>
+                      );
+                    }
+                  )}
+
+                  {page < moviesData.total_pages && (
+                    <PaginationItem>
+                      <PaginationNext
+                        href={`/Genre/${genreId}?page=${page + 1}`}
+                      />
+                    </PaginationItem>
+                  )}
+                </PaginationContent>
+              </Pagination>
+            </div> */
+}

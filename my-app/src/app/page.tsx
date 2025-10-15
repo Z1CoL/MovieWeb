@@ -39,20 +39,14 @@ export default function Home() {
       <div className="p-6 space-y-8 flex flex-col items-center justify-center">
         <CarouselSection />
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
-          {Array.from({ length: 1 }).map((_, i) => (
-            <SkeletonCard key={i} />
-          ))}
+          <SkeletonCard />
         </div>
       </div>
     );
   }
 
   if (!upcoming || !popular || !topRated) {
-    return (
-      <div className="w-screen h-screen text-center p-10 text-gray-500">
-        Failed to load data
-      </div>
-    );
+    return null;
   }
 
   return (
