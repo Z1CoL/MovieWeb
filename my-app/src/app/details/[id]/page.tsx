@@ -16,9 +16,8 @@ import {
   MovieGeneralType,
   genreInType,
 } from "@/lib/type";
-import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 
-// --- Detail content ---
 async function DetailContent({ id }: { id: string }) {
   const movieDetail = await getMovieDetails(id);
   const movieActors: unitCrewType = await getMovieActors(id);
@@ -27,9 +26,11 @@ async function DetailContent({ id }: { id: string }) {
 
   const crew: crewType[] = movieActors.crew;
   const cast: castType[] = movieActors.cast;
-  const trailer = movieTrailer.results?.[0];
 
-  console.log(trailer);
+  const trailer =
+    movieTrailer?.results?.find(
+      (video: any) => video.type === "Trailer" && video.site === "YouTube"
+    ) || movieTrailer?.results?.[0];
 
   return (
     <div className="flex flex-col items-center justify-center mt-[100px] mb-[100px]">
@@ -71,7 +72,7 @@ async function DetailContent({ id }: { id: string }) {
           unoptimized
           className="rounded-2xl object-cover"
         />
-        <div className="relative ">
+        <div className="flex relative">
           <Image
             src={`https://image.tmdb.org/t/p/w500${movieDetail.backdrop_path}`}
             height={428}
@@ -80,7 +81,31 @@ async function DetailContent({ id }: { id: string }) {
             unoptimized
             className="rounded-2xl object-cover"
           />
-          <Button className="absolute top-1 bg-white "> <Image src={"PlayButton.svg"} height={16} width={16} alt=""></Image></Button>
+          {trailer && (
+            <Dialog>
+              <DialogTrigger asChild className="left-3 bottom-4 absolute">
+                <button className="bg-gray-100 hover:bg-gray-700 font-semibold px-3.5 py-2 rounded-full w-fit">
+                  ▶
+                </button>
+              </DialogTrigger>
+
+              <p className="left-[80px] bottom-6 absolute text-white">
+                Watch Trailer
+              </p>
+
+              <DialogContent className="bg-black border-none p-0 rounded-xl overflow-hidden min-w-[70%] min-h-[70%]">
+                <div className="flex justify-center items-center">
+                  <iframe
+                    width="100%"
+                    height="100%"
+                    src={`https://www.youtube.com/embed/${trailer.key}`}
+                    title={trailer.name}
+                    className="rounded-xl"
+                  />
+                </div>
+              </DialogContent>
+            </Dialog>
+          )}
         </div>
       </div>
 

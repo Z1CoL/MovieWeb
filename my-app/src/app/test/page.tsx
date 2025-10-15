@@ -37,9 +37,9 @@ export default function Home() {
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6 mt-[40px]">
           {Array.from({ length: 5 }).map((_, i) => (
             <div key={i} className="space-y-2">
-              <Skeleton className="h-56  rounded-2xl"></Skeleton>
-              <Skeleton className="h-4  rounded w-3/4"></Skeleton>
-              <Skeleton className="h-4  rounded w-1/2"></Skeleton>
+              <Skeleton className="h-56 rounded-2xl"></Skeleton>
+              <Skeleton className="h-4 rounded w-3/4"></Skeleton>
+              <Skeleton className="h-4 rounded w-1/2"></Skeleton>
             </div>
           ))}
         </div>
@@ -47,7 +47,6 @@ export default function Home() {
     </div>
   );
 }
-
 {
   /* 
             <div className="mt-8">

@@ -8,26 +8,39 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { BackEndData } from "@/lib/type";
-import { getNowPlayingMovies } from "@/utility/getData";
+import { getNowPlayingMovies, getTrailer } from "@/utility/getData";
 import Autoplay from "embla-carousel-autoplay";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 export default function CarouselSection() {
-  const [movies, setMovies] = React.useState<BackEndData>();
+  const [movies, setMovies] = useState<BackEndData>();
+  const [trailer, setTrailer] = useState<any>(null);
 
   const plugin = React.useRef(
     Autoplay({ delay: 5000, stopOnInteraction: true })
   );
 
-  React.useEffect(() => {
+  useEffect(() => {
     async function fetchMovies() {
       const data: BackEndData = await getNowPlayingMovies();
       setMovies(data);
     }
     fetchMovies();
   }, []);
+
+  async function WatchTrailer(movieId: number) {
+    const trailerData = await getTrailer(movieId);
+
+    const traile =
+      trailerData?.results?.find(
+        (v: any) => v.type === "Trailer" && v.site === "YouTube"
+      ) || trailerData.results;
+
+    setTrailer(traile.key );
+  }
 
   return (
     <Carousel>
@@ -63,10 +76,37 @@ export default function CarouselSection() {
                   {movie.overview}
                 </p>
 
-                <Button className="bg-white text-black w-fit rounded-sm flex items-center gap-2">
-                  <Image src={"/play.svg"} width={16} height={16} alt="play" />
-                  Watch Trailer
-                </Button>
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Button
+                      // onClick={() => WatchTrailer(movie.id)}
+                      className="bg-white text-black w-fit rounded-sm flex items-center gap-2"
+                    >
+                      <Image
+                        src={"/play.svg"}
+                        width={16}
+                        height={16}
+                        alt="play"
+                      />
+                      Watch Trailer
+                    </Button>
+                  </DialogTrigger>
+
+                  <DialogContent className="bg-black border-none p-0 rounded-xl overflow-hidden min-h-[60%] min-w-[70%]">
+                    {trailer  && (
+                      <div className="flex justify-center items-center">
+                        <iframe
+                          width="100%"
+                          height="561"
+                          src={`https://www.youtube.com/embed/${trailer}`}
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                          className="rounded-xl"
+                        />
+                      </div>
+                    ) }
+                  </DialogContent>
+                </Dialog>
               </div>
             </div>
           </CarouselItem>
