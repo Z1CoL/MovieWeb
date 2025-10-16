@@ -13,13 +13,13 @@ import { BackEndData } from "@/lib/type";
 import { getNowPlayingMovies, getTrailer } from "@/utility/getData";
 import Autoplay from "embla-carousel-autoplay";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 export default function CarouselSection() {
   const [movies, setMovies] = useState<BackEndData>();
   const [trailer, setTrailer] = useState<any>(null);
 
-  const plugin = React.useRef(
+  const plugin = useRef(
     Autoplay({ delay: 5000, stopOnInteraction: true })
   );
 
@@ -39,7 +39,7 @@ export default function CarouselSection() {
         (v: any) => v.type === "Trailer" && v.site === "YouTube"
       ) || trailerData.results;
 
-    setTrailer(traile.key );
+    setTrailer(traile.key);
   }
 
   return (
@@ -79,7 +79,7 @@ export default function CarouselSection() {
                 <Dialog>
                   <DialogTrigger asChild>
                     <Button
-                      // onClick={() => WatchTrailer(movie.id)}
+                      onClick={() => WatchTrailer(Number(movie.id))}
                       className="bg-white text-black w-fit rounded-sm flex items-center gap-2"
                     >
                       <Image
@@ -93,18 +93,18 @@ export default function CarouselSection() {
                   </DialogTrigger>
 
                   <DialogContent className="bg-black border-none p-0 rounded-xl overflow-hidden min-h-[60%] min-w-[70%]">
-                    {trailer  && (
+                    {trailer && (
                       <div className="flex justify-center items-center">
                         <iframe
                           width="100%"
-                          height="561"
+                          height="90%"
                           src={`https://www.youtube.com/embed/${trailer}`}
                           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                           allowFullScreen
                           className="rounded-xl"
                         />
                       </div>
-                    ) }
+                    )}
                   </DialogContent>
                 </Dialog>
               </div>

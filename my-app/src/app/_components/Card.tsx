@@ -5,6 +5,8 @@ import Link from "next/link";
 export const Movies = (props: { moviesCardData: BackEndData }) => {
   const { moviesCardData } = props;
 
+  console.log(moviesCardData, "");
+  
   return (
     <div className="flex flex-wrap gap-[32px] px-[80px]">
       {moviesCardData.results.slice(0, 10).map((movie, i) => (

@@ -18,7 +18,7 @@ export default function MainLoader() {
 
         {Array.from({ length: 3 }).map((_, section) => (
           <div key={section} >
-            {/* Section header */}
+
             <div className="flex justify-between items-center">
               <div className="h-6 bg-gray-100 rounded w-48 mb-5"></div>
               <div className="h-4 bg-gray-100 rounded w-20 mb-5"></div>

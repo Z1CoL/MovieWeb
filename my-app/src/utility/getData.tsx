@@ -1,110 +1,176 @@
 import axios from "axios";
 
-export async function GetData() {
-  {
-    const response = await axios.get(
-      "https://api.themoviedb.org/3/movie/popular?language=en-US&page=1"
-    );
-  }
-}
-
-export const getMovieDetails = async (MovieId: string) => {
-  const res = await axios.get(
-    `https://api.themoviedb.org/3/movie/${MovieId}?language=en-US`,
-    {
-      headers: {
-        accept: "application/json",
-        Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_API_KEY} `,
-      },
-    }
-  );
+const fetcher = async (url: string) => {
+  const res = await axios.get(url, {
+    headers: {
+      accept: "application/json",
+      Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_API_KEY}`,
+    },
+  });
   return res.data;
 };
 
-export const getMovieActors = async (id: string) => {
-  const actors = await axios.get(
-    `https://api.themoviedb.org/3/movie/${id}/credits?language=en-US`,
-    {
-      headers: {
-        accept: "application/json",
-        Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_API_KEY} `,
-      },
-    }
+export const getMovieDetails = async (MovieId: string) => {
+  return fetcher(
+    `https://api.themoviedb.org/3/movie/${MovieId}?language=en-US`
   );
-
-  return actors.data;
 };
-// /movie/${id}/credits?language=en-US
+
+export const getMovieActors = async (id: string) => {
+  return fetcher(
+    `https://api.themoviedb.org/3/movie/${id}/credits?language=en-US`
+  );
+};
 
 export const getSimilarMovies = async (id: string) => {
-  const similarMovies = await axios.get(
-    `https://api.themoviedb.org/3/movie/${id}/similar?language=en-US&page=1`,
-    {
-      headers: {
-        accept: "application/json",
-        Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_API_KEY} `,
-      },
-    }
+  return fetcher(
+    `https://api.themoviedb.org/3/movie/${id}/similar?language=en-US&page=1`
   );
-
-  return similarMovies.data;
 };
-// /movie/${id}/similar?language=en-US&page=1
 
 export const getNowPlayingMovies = async () => {
-  const nowPlaying = await axios.get(
-    `https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1`,
-    {
-      headers: {
-        accept: "application/json",
-        Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_API_KEY} `,
-      },
-    }
+  return fetcher(
+    `https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1`
   );
-
-  return nowPlaying.data;
 };
 
-//  /movie/now_playing?language=en-US&page=1
-
 export const getGenre = async () => {
-  const response = await axios.get(
-    `https://api.themoviedb.org/3/genre/movie/list?language=en`,
-    {
-      headers: {
-        accept: "application/json",
-        Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_API_KEY}`,
-      },
-    }
-  );
-  return response.data;
+  return fetcher(`https://api.themoviedb.org/3/genre/movie/list?language=en`);
 };
 
 export const getGenreIds = async (genreIds: string, page: number = 1) => {
-  const response = await axios.get(
-    `https://api.themoviedb.org/3/discover/movie?language=en&with_genres=${genreIds}&page=${page}`,
-    {
-      headers: {
-        accept: "application/json",
-        Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_API_KEY}`,
-      },
-    }
+  return fetcher(
+    `https://api.themoviedb.org/3/discover/movie?language=en&with_genres=${genreIds}&page=${page}`
   );
-  return response.data;
 };
 
 export const getTrailer = async (id: number) => {
-  const response = await axios.get(
-    `https://api.themoviedb.org/3/movie/${id}/videos?language=en-US`,
-    {
-      headers: {
-        accept: "application/json",
-        Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_API_KEY}`,
-      },
-    }
+  return fetcher(
+    `https://api.themoviedb.org/3/movie/${id}/videos?language=en-US`
   );
-  return response.data;
 };
 
+export const getSearch = async (searchValue: string, page: number) => {
+  return fetcher(
+    `/search/movie?query=${searchValue}&language=en-US&page=${page}`
+  );
+};
 
-//   /movie/${id}/videos?language=en-US.
+// import axios from "axios";
+
+// const fetcher = (url: string) =>
+//   axios
+//     .get(url, {
+//       headers: {
+//         Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_API_KEY}`,
+//       },
+//     })
+//     .then((res) => res.data);
+
+//     const fetcher = async (url: string) => {
+//   const res = await axios.get(url, {
+//     headers: {
+//       Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_API_KEY}`,
+//     },
+//   });
+//   return res.data;
+// };
+
+// export const getMovieDetails = async (MovieId: string) => {
+//     return fetcher(`https://api.themoviedb.org/3/movie/${MovieId}?language=en-US`)
+
+//     {
+//       headers: {
+//         accept: "application/json",
+//         Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_API_KEY} `,
+//       },
+//     }
+//   );
+// };
+
+// export const getMovieActors = async (id: string) => {
+//   const actors = await axios.get(
+//     `https://api.themoviedb.org/3/movie/${id}/credits?language=en-US`,
+//     {
+//       headers: {
+//         accept: "application/json",
+//         Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_API_KEY} `,
+//       },
+//     }
+//   );
+
+//   return actors.data;
+// };
+// // /movie/${id}/credits?language=en-US
+
+// export const getSimilarMovies = async (id: string) => {
+//   const similarMovies = await axios.get(
+//     `https://api.themoviedb.org/3/movie/${id}/similar?language=en-US&page=1`,
+//     {
+//       headers: {
+//         accept: "application/json",
+//         Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_API_KEY} `,
+//       },
+//     }
+//   );
+
+//   return similarMovies.data;
+// };
+// // /movie/${id}/similar?language=en-US&page=1
+
+// export const getNowPlayingMovies = async () => {
+//   const nowPlaying = await axios.get(
+//     `https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1`,
+//     {
+//       headers: {
+//         accept: "application/json",
+//         Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_API_KEY} `,
+//       },
+//     }
+//   );
+
+//   return nowPlaying.data;
+// };
+
+// //  /movie/now_playing?language=en-US&page=1
+
+// export const getGenre = async () => {
+//   const response = await axios.get(
+//     `https://api.themoviedb.org/3/genre/movie/list?language=en`,
+//     {
+//       headers: {
+//         accept: "application/json",
+//         Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_API_KEY}`,
+//       },
+//     }
+//   );
+//   return response.data;
+// };
+
+// export const getGenreIds = async (genreIds: string, page: number = 1) => {
+//   const response = await axios.get(
+//     `https://api.themoviedb.org/3/discover/movie?language=en&with_genres=${genreIds}&page=${page}`,
+//     {
+//       headers: {
+//         accept: "application/json",
+//         Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_API_KEY}`,
+//       },
+//     }
+//   );
+//   return response.data;
+// };
+
+// export const getTrailer = async (id: number) => {
+//   const response = await axios.get(
+//     `https://api.themoviedb.org/3/movie/${id}/videos?language=en-US`,
+//     {
+//       headers: {
+//         accept: "application/json",
+//         Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_API_KEY}`,
+//       },
+//     }
+//   );
+//   return response.data;
+// };
+
+// //   /movie/${id}/videos?language=en-US.

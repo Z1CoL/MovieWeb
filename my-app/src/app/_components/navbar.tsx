@@ -1,9 +1,9 @@
 
 import Image from "next/image";
-import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import GenresDropdown from "./genre";
 import { ThemeChanger } from "./Them";
+import SearchMovies from "./Search";
 
 export default function Navbar() {
   return (
@@ -20,16 +20,7 @@ export default function Navbar() {
 
         <div className="flex gap-[10px] w-[488px]">
           <GenresDropdown />
-          <div className="flex items-center relative">
-            <Image
-              src={"/searchIcon.svg"}
-              width={17}
-              height={17}
-              alt="search"
-              className="absolute left-2"
-            />
-            <Input placeholder="Search" className="w-[379px] pl-[30px]" />
-          </div>
+          <SearchMovies searchValue={""} page={0}></SearchMovies>
         </div>
 
         <ThemeChanger />
