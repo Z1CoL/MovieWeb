@@ -31,6 +31,7 @@ export default function CarouselSection() {
     fetchMovies();
   }, []);
 
+  
   async function WatchTrailer(movieId: number) {
     const trailerData = await getTrailer(movieId);
 
